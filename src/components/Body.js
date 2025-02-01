@@ -21,12 +21,12 @@ const Body = () => {
     );
 
     const json = await data.json();
-
+    console.log(json)
     setListOfRestaurant(
-      json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
+      json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
     );
     setFilteredList(
-      json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
+      json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
     );
   };
 
@@ -41,16 +41,18 @@ const Body = () => {
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search-container">
+      <div className="filter flex justify-center">
+        <div className="flex">
           <input
             type="text"
             value={searchText}
             onChange={(e) => {
               setsearchText(e.target.value);
             }}
+            className="border-2 m-4 p-2"
           />
           <button
+          className="bg-orange-300 m-4 px-5 py-2 rounded-md"
             onClick={() => {
               const filteredList = listOfRestaurant.filter((res) =>
                 res.info.name
@@ -64,7 +66,7 @@ const Body = () => {
           </button>
         </div>
         <button
-          className="btn"
+          className="bg-orange-300 m-4 px-5 py-2 rounded-md"
           onClick={() => {
             const filteredList = listOfRestaurant.filter(
               (res) => res.info.avgRating > 4
@@ -76,7 +78,7 @@ const Body = () => {
           Top Rated Restaurants
         </button>
       </div>
-      <div className="res-container">
+      <div className="flex flex-wrap justify-center">
         {filteredList.map((restaurant) => (
           <Link to = { "/restaurants/" + restaurant.info.id} key={restaurant.info.id}>
             <RestaurantCard  resData={restaurant} />
